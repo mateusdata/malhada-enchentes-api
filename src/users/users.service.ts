@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { log } from 'console';
 
 @Injectable()
 export class UsersService {
@@ -55,4 +56,12 @@ export class UsersService {
     }
     return user;
   }
+
+  async removeAll (){
+    const users = this.prisma.user.deleteMany();
+    if (!users) {
+      throw new NotFoundException('No users found');
+    }
+    return users;
+  } 
 }

@@ -1,18 +1,33 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { log } from 'console';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async create(createUserDto: CreateUserDto) {
+
+    const existingUser  =  await this.prisma.user.findUnique({
+      where:{
+        email: createUserDto.email,
+      }
+    });
+
+    if (existingUser){
+      throw new ConflictException()
+    }
+
+    const saltOrRounds = 10;
+    const password = await bcrypt.hash(createUserDto.password, saltOrRounds);
+    
     const user = await this.prisma.user.create({
       data: {
         email: createUserDto.email,
         name: createUserDto.name,
+        password: password
       },
     });
     return user;
@@ -23,7 +38,8 @@ export class UsersService {
     if (!users || users.length === 0) {
       throw new NotFoundException('No users found');
     }
-    return users;
+    const result  =  users.map(({password, ...users}) => users)
+   return users.map(({password, ...users}) => users);
   }
 
   async findOne(id: number) {
@@ -57,11 +73,16 @@ export class UsersService {
     return user;
   }
 
-  async removeAll (){
-    const users = this.prisma.user.deleteMany();
-    if (!users) {
-      throw new NotFoundException('No users found');
+  async removeAll() {
+    const result = await this.prisma.user.deleteMany();
+
+    if (result.count === 0) {
+      throw new NotFoundException('No users found to delete');
     }
-    return users;
-  } 
+
+    return {
+      message: `${result.count} user(s) deleted successfully`,
+    };
+  }
+
 }

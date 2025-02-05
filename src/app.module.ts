@@ -6,6 +6,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth/auth.guard';
+import { NotificationsModule } from './notifications/notifications.module';
 
 
 @Module({
@@ -13,6 +14,7 @@ import { AuthGuard } from './auth/auth.guard';
     UsersModule,
     PrismaModule,
     AuthModule,
+    NotificationsModule,
   ],
   controllers: [AppController],
   providers: [

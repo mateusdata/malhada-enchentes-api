@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth/auth.guard';
 import { NotificationsModule } from './notifications/notifications.module';
+import { WeatherModule } from './weather/weather.module';
 
 
 @Module({
@@ -15,6 +16,7 @@ import { NotificationsModule } from './notifications/notifications.module';
     PrismaModule,
     AuthModule,
     NotificationsModule,
+    WeatherModule,
   ],
   controllers: [AppController],
   providers: [

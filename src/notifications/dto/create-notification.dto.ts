@@ -1,1 +1,3 @@
-export class CreateNotificationDto {}
+export class CreateNotificationDto {
+  level: any
+}

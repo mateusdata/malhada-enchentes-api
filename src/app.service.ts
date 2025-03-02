@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 export class AppService {
   getHello(): object {
     const data = {
-      api: 'v1',
+      api: 'Malhada Weather API', 
     }
     return data;
   }

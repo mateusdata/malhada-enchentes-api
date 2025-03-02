@@ -1,14 +1,12 @@
-import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
-
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateUserDto {
-  @IsEmail({}, { message: 'Email must be a valid email address' })
-  email: string;
+  @IsNotEmpty({ message: 'Device Token is required' })
+  @IsString({ message: 'Device Token must be a string' })
+  deviceToken: string;
 
-  @IsNotEmpty({ message: 'Name is required' })
-  name: string;
-
-  @IsNotEmpty({ message: 'Password is required' })
-  @MinLength(6, { message: 'Password must be at least 6 characters long' })
-  password: string;
+  @IsNotEmpty({ message: 'Device ID is required' })
+  @IsString({ message: 'Device ID must be a string' })
+  deviceId: string;
 }
+

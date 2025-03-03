@@ -8,11 +8,19 @@ export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto) {
-    return this.prisma.user.create({
-      data: {
+
+    const user = await  this.prisma.user.upsert({
+      where: { deviceToken: createUserDto.deviceToken },
+      update: {},
+      create: {
         deviceToken: createUserDto.deviceToken,
       },
     });
+
+    if (!user) {  
+      throw new Error('User not created');
+    }
+    return user;
   }
 
   async findAll() {

@@ -23,7 +23,7 @@ model User {
 }
 
 
-model EducationalContent {
+model Educational {
   id          Int      @id @default(autoincrement())
   title       String
   description String

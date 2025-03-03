@@ -1,6 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Public } from './constants';
 import { ApiExcludeEndpoint } from '@nestjs/swagger';
 
 @Controller()

@@ -2,7 +2,6 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { WeatherService } from './weather.service';
 import { CreateWeatherDto } from './dto/create-weather.dto';
 import { UpdateWeatherDto } from './dto/update-weather.dto';
-import { Public } from 'src/constants';
 
 @Controller('weather')
 export class WeatherController {

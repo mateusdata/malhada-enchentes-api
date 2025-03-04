@@ -25,7 +25,7 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, documentFactory);
 
   const port = process.env.PORT ?? 3001;
-  await app.listen(port);
+  await app.listen(port, "0.0.0.0");
 
   const prismaService = app.get(PrismaService);
   try {

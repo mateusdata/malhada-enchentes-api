@@ -22,7 +22,7 @@ export class NotificationsService {
         body: `O nível do rio está em ${levelInMeters.toFixed(2)} metros. Fique atento!`,
         data: {
           level: levelInMeters.toFixed(2),
-          nav: "/teste",
+          nav: "/",
         },
       };
   

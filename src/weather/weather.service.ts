@@ -1,16 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateWeatherDto } from './dto/create-weather.dto';
 import { UpdateWeatherDto } from './dto/update-weather.dto';
-import { createCache } from 'cache-manager';
+import { Cache } from 'cache-manager';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 @Injectable()
 export class WeatherService {
 
-  private readonly cache =  createCache({
-    ttl: 60000, 
-    refreshThreshold: 500,
-    cacheId: 'weather',
-  });
+ 
+constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
+
 
   private readonly cities = [
     { name: 'Malhada (BA)', query: 'Malhada,BR' },
@@ -28,15 +27,15 @@ export class WeatherService {
 
   async findAll() {
     const APPID = process.env.APPID;
-    const results: { city: string; data?: any; error?: string }[] = [];
+    const results:any  = [];
   
     for (const city of this.cities) {
       const cacheKey = `weather_${city.query}`;
-      const cachedData = await this.cache.get(cacheKey);
+      const cachedData = await this.cacheManager.get(cacheKey);
   
       if (cachedData) {
         console.log(`Retornando dados do cache para ${city.name}`);
-        results.push({ city: city.name, data: cachedData });
+        results.push( cachedData );
         continue;
       }
   
@@ -49,7 +48,7 @@ export class WeatherService {
         }
   
         const data = await response.json();
-        await this.cache.set(cacheKey, data);
+        await this.cacheManager.set(cacheKey, data);
   
         results.push(data);
       } catch (error) {
@@ -67,7 +66,7 @@ export class WeatherService {
   
     const cacheKey = 'teste';
 
-    const cachedData = await this.cache.get(cacheKey);
+    const cachedData = await this.cacheManager.get(cacheKey);
     console.log('cachedData', cachedData);  
     if (cachedData) { 
       console.log('Retornando dados do cache'); 
@@ -82,7 +81,7 @@ export class WeatherService {
         throw new Error(`Error fetching data: ${response.statusText}`);
       }
       const data = await response.json();
-      await this.cache.set(cacheKey, data);
+      await this.cacheManager.set(cacheKey, data);
       console.log('cachedData', cachedData);  
 
       return data;

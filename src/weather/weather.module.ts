@@ -5,7 +5,7 @@ import { WeatherController } from './weather.controller';
 
 @Module({
   imports:[CacheModule.register({
-    ttl: 360000, // seconds 
+    ttl: 120000, // seconds 
   })],
   controllers: [WeatherController],
   providers: [WeatherService],

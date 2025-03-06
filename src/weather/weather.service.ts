@@ -12,7 +12,7 @@ constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
 
 
   private readonly cities = [
-    { name: 'Manaus (BA)', query: 'Manaus,BR' },
+    { name: 'Malhada (BA)', query: 'Malhada,BR' },
     { name: 'Delfinópolis (MG)', query: 'Delfinopolis,BR' },
     { name: 'Manga (MG)', query: 'Manga,BR' },
     { name: 'Januária (MG)', query: 'Januaria,BR' },

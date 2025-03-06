@@ -22,8 +22,8 @@ async function bootstrap() {
   const logger = new Logger('Bootstrap');
 
   const config = new DocumentBuilder()
-    .setTitle('Api Obra-data')
-    .setDescription('Arocha nego veilho ')
+    .setTitle('Malhada Floods API')
+    .setDescription('API documentation for Malhada Floods')
     .setVersion('1.0')
     .addTag('Endpoints')
     .build();

@@ -2,7 +2,6 @@
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "deviceToken" TEXT NOT NULL,
-    "deviceId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -10,7 +9,7 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
-CREATE TABLE "EducationalContent" (
+CREATE TABLE "Educational" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
@@ -19,11 +18,8 @@ CREATE TABLE "EducationalContent" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "EducationalContent_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Educational_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_deviceToken_key" ON "User"("deviceToken");
-
--- CreateIndex
-CREATE UNIQUE INDEX "User_deviceId_key" ON "User"("deviceId");

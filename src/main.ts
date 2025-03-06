@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { PrismaService } from './prisma/prisma.service';
-import { ConsoleLogger, Logger } from '@nestjs/common';
+import { ConsoleLogger, Logger, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
@@ -10,7 +10,15 @@ async function bootstrap() {
     logger: new ConsoleLogger({
       prefix: 'API-OrcaData', // Default is "Nest"
     }),
-  });
+  })
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true, // Remove propriedades extras não definidas no DTO
+      forbidNonWhitelisted: true, // Retorna erro se propriedades extras forem enviadas
+      transform: true, // Converte automaticamente os tipos dos dados
+    }),
+  );
   const logger = new Logger('Bootstrap');
 
   const config = new DocumentBuilder()

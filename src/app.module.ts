@@ -8,6 +8,7 @@ import { AppService } from './app.service';
 import { EducationalsModule } from './educationals/educationals.module';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { WaterLevelModule } from './water-level/water-level.module';
 
 
 @Module({
@@ -25,6 +26,7 @@ import { APP_GUARD } from '@nestjs/core';
     NotificationsModule,
     WeatherModule,
     EducationalsModule,
+    WaterLevelModule,
   ],
   controllers: [AppController],
   providers: [

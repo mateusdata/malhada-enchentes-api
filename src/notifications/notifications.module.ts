@@ -2,10 +2,12 @@ import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/c
 import { NotificationsService } from './notifications.service';
 import { NotificationsController } from './notifications.controller';
 import { Esp32Auth } from '../middleware/esp32-auth.middleware'; 
+import { WaterLevelService } from 'src/water-level/water-level.service';
 
 @Module({
+
   controllers: [NotificationsController],
-  providers: [NotificationsService],
+  providers: [NotificationsService, WaterLevelService],
 })
 export class NotificationsModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

@@ -17,18 +17,4 @@ export class WaterLevelController {
     return this.waterLevelService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.waterLevelService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateWaterLevelDto: UpdateWaterLevelDto) {
-    return this.waterLevelService.update(+id, updateWaterLevelDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.waterLevelService.remove(+id);
-  }
 }

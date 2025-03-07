@@ -67,19 +67,5 @@ export class NotificationsService {
   }
 
 
-  async findAll() {
-    return `This action returns all notifications`;
-  }
-
-  async findOne(id: number) {
-    return `This action returns a #${id} notification`;
-  }
-
-  update(id: number, updateNotificationDto: UpdateNotificationDto) {
-    return `This action updates a #${id} notification`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} notification`;
-  }
+ 
 }

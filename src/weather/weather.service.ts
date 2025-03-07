@@ -21,10 +21,6 @@ constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
     { name: 'São Francisco (MG)', query: 'Sao+Francisco,BR' },
   ];
 
-  create(createWeatherDto: CreateWeatherDto) {
-    return 'This action adds a new weather';
-  }
-
   async findAll() {
     const APPID = process.env.APPID;
     const results:any  = [];
@@ -62,7 +58,7 @@ constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
   }
   
 
-  async findOne(id: number) {
+  async findOne(city: number) {
   
     const cacheKey = 'teste';
 
@@ -91,11 +87,5 @@ constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
     }
   }
 
-  update(id: number, updateWeatherDto: UpdateWeatherDto) {
-    return `This action updates a #${id} weather`;
-  }
 
-  remove(id: number) {
-    return `This action removes a #${id} weather`;
-  }
 }

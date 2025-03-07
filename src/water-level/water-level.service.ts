@@ -31,15 +31,5 @@ export class WaterLevelService {
     return waterLevel;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} waterLevel`;
-  }
-
-  update(id: number, updateWaterLevelDto: UpdateWaterLevelDto) {
-    return `This action updates a #${id} waterLevel`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} waterLevel`;
-  }
+ 
 }

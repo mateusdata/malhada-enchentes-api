@@ -15,20 +15,27 @@ export class NotificationsService {
 
     const level = createNotificationDto.level;
     const levelInMeters = level / 100;
-    const getWaterLevel = await this.waterLevelService.findAll();
-    console.log(getWaterLevel?.level === levelInMeters);
-    if (getWaterLevel?.level === levelInMeters) {
-      return { message: "Water level is already at the specified level." };
+    const getWaterLevel: any = await this.waterLevelService.findAll();
+    console.log(levelInMeters);
+    
+   // console.log(getWaterLevel?.level - levelInMeters)
+   // console.log(Math.abs(getWaterLevel?.level - levelInMeters) <= 0.05)
+
+    if (Math.abs(getWaterLevel?.level - levelInMeters) <= 0.05) {
+      console.log("The water level difference is less than or equal to 5 centimeters. No alert will be sent.");
+      return { message: "The water level difference is less than or equal to 5 centimeters. No alert will be sent." };
+    }
+    if (levelInMeters < 1) {
+      return { message: "Water level cannot be less than 1 meter." };
     }
 
     const waterLevel = await this.waterLevelService.create({ level: levelInMeters, location: "Malhada Bahia" });
 
-
     // Obtem todos os usuários do banco
     const users = await this.prisma.user.findMany();
     let body: string | null;
-    let title: string | null ; 
-    
+    let title: string | null;
+
     if (levelInMeters <= 3) {
       body = `✅ O nível do rio está em ${levelInMeters.toFixed(2)} metros acima do normal. A situação está sob controle, mas continue acompanhando as atualizações.`;
       title = "Nível do Rio Estável";
@@ -39,8 +46,8 @@ export class NotificationsService {
       body = `🚨 ALERTA CRÍTICO! O nível do rio atingiu ${levelInMeters.toFixed(2)} metros acima do normal. Tome precauções imediatamente e busque um local seguro!`;
       title = "Perigo de Enchente!";
     }
-    
-    
+
+
     // Mapeia e envia notificações para cada usuário
     const notifications = users.map(async (user) => {
       const data = {
@@ -73,5 +80,5 @@ export class NotificationsService {
   }
 
 
- 
+
 }

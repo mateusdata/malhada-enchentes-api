@@ -27,20 +27,26 @@ export class NotificationsService {
     // Obtem todos os usuários do banco
     const users = await this.prisma.user.findMany();
     let body: string | null;
-
+    let title: string | null ; 
+    
     if (levelInMeters <= 3) {
-      body = `✅ O nível do rio está em ${levelInMeters.toFixed(2)} metros. A situação está normal, mas continue atento!`;
+      body = `✅ O nível do rio está em ${levelInMeters.toFixed(2)} metros acima do normal. A situação está sob controle, mas continue acompanhando as atualizações.`;
+      title = "Nível do Rio Estável";
     } else if (levelInMeters > 3 && levelInMeters <= 7) {
-      body = `⚠️ O nível do rio está em ${levelInMeters.toFixed(2)} metros. Fique atento!`;
+      body = `⚠️ O nível do rio subiu para ${levelInMeters.toFixed(2)} metros acima do normal. Permaneça atento e preparado para possíveis mudanças.`;
+      title = "Nível do Rio Elevado";
     } else {
-      body = `🚨 O nível do rio está em ${levelInMeters.toFixed(2)} metros. Alerta crítico, tome precauções imediatas!`;
-    }    
+      body = `🚨 ALERTA CRÍTICO! O nível do rio atingiu ${levelInMeters.toFixed(2)} metros acima do normal. Tome precauções imediatamente e busque um local seguro!`;
+      title = "Perigo de Enchente!";
+    }
+    
+    
     // Mapeia e envia notificações para cada usuário
     const notifications = users.map(async (user) => {
       const data = {
         to: user.deviceToken, // Token do dispositivo do usuário
         sound: "default",
-        title: "🌊 Alerta de Enchente",
+        title: title,
         body: body,
         data: {
           level: levelInMeters.toFixed(2),

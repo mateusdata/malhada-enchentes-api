@@ -20,7 +20,7 @@ export class NotificationsService {
 
     // console.log(getWaterLevel?.level - levelInMeters)
     // console.log(Math.abs(getWaterLevel?.level - levelInMeters) <= 0.05)
-    const hasCondition = false && Math.abs(getWaterLevel?.level - levelInMeters) <= 0.05; // Condição para não enviar alerta
+    const hasCondition = true && Math.abs(getWaterLevel?.level - levelInMeters) <= 0.05; // Condição para não enviar alerta
     console.log(hasCondition);  
     if (hasCondition) {
       console.log("The water level difference is less than or equal to 5 centimeters. No alert will be sent.");

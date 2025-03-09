@@ -17,15 +17,16 @@ export class NotificationsService {
     const levelInMeters = level / 100;
     const getWaterLevel: any = await this.waterLevelService.findAll();
     console.log(levelInMeters);
-    
-   // console.log(getWaterLevel?.level - levelInMeters)
-   // console.log(Math.abs(getWaterLevel?.level - levelInMeters) <= 0.05)
 
-    if (Math.abs(getWaterLevel?.level - levelInMeters) <= 0.05) {
+    // console.log(getWaterLevel?.level - levelInMeters)
+    // console.log(Math.abs(getWaterLevel?.level - levelInMeters) <= 0.05)
+    const hasCondition = false && Math.abs(getWaterLevel?.level - levelInMeters) <= 0.05; // Condição para não enviar alerta
+    console.log(hasCondition);  
+    if (hasCondition) {
       console.log("The water level difference is less than or equal to 5 centimeters. No alert will be sent.");
       return { message: "The water level difference is less than or equal to 5 centimeters. No alert will be sent." };
     }
-    if (levelInMeters < 1) {
+    if (levelInMeters < 0.2) {
       return { message: "Water level cannot be less than 1 meter." };
     }
 

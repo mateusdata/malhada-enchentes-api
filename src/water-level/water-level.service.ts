@@ -35,7 +35,7 @@ export class WaterLevelService {
 
   async findAll() {
     const waterLevel = await this.prisma.waterLevel.findFirst();
-   this.WebsocketsGateway.findAll()
+    await this.WebsocketsGateway.findAll()
     return waterLevel;
   }
 

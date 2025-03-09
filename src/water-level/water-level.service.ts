@@ -13,9 +13,9 @@ export class WaterLevelService {
   ) {}
 
 
-  create(createWaterLevelDto: CreateWaterLevelDto) {
+ async create(createWaterLevelDto: CreateWaterLevelDto) {
     
-   const waterLevel  =  this.prisma.waterLevel.upsert({
+   const waterLevel  = await this.prisma.waterLevel.upsert({
     where: { id: 1 },
     update: {
       level: createWaterLevelDto.level,
@@ -27,15 +27,15 @@ export class WaterLevelService {
     },  
    })
    
-   //this.WebsocketsGateway.handleEvent('water-level', waterLevel); 
+  await this.WebsocketsGateway.findAll()
 
    return   waterLevel;
 
   }
 
-  findAll() {
-    const waterLevel = this.prisma.waterLevel.findFirst();
-    //this.WebsocketsGateway.handleEvent('water-level', waterLevel);
+  async findAll() {
+    const waterLevel = await this.prisma.waterLevel.findFirst();
+   this.WebsocketsGateway.findAll()
     return waterLevel;
   }
 

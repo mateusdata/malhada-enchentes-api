@@ -9,6 +9,7 @@ import { EducationalsModule } from './educationals/educationals.module';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { WaterLevelModule } from './water-level/water-level.module';
+import { WebsocketsModule } from './websockets/websockets.module';
 
 
 @Module({
@@ -27,6 +28,7 @@ import { WaterLevelModule } from './water-level/water-level.module';
     WeatherModule,
     EducationalsModule,
     WaterLevelModule,
+    WebsocketsModule,
   ],
   controllers: [AppController],
   providers: [

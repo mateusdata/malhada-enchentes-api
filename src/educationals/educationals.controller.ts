@@ -14,6 +14,7 @@ export class EducationalsController {
 
   @Get()
   findAll() {
+    
     return this.educationalsService.findAll();
   }
 

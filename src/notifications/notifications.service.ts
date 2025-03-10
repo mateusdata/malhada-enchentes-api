@@ -58,7 +58,7 @@ export class NotificationsService {
         body: body,
         data: {
           level: levelInMeters.toFixed(2),
-          nav: "/",
+          nav: "/(tabs)/home",
         },
       };
 

@@ -49,8 +49,8 @@ constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
         results.push(data);
       } catch (error) {
         console.error(`Error fetching data for ${city.name}:`, error);
-  
-        results.push({ city: city.name, error: 'Failed to fetch data' });
+        throw new Error('Failed to fetch weather data');
+        //results.push({ city: city.name, error: 'Failed to fetch data' });
       }
     }
   

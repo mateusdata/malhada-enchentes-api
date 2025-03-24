@@ -11,9 +11,14 @@ export class WeatherController {
   findAll() {
     return this.weatherService.findAll();
   }
+  @Get('/rain')
+  async getRainVolume() {
+    return this.weatherService.getRainVolume();
+  }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.weatherService.findOne(+id);
   }
+
 }

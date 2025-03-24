@@ -87,5 +87,40 @@ constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
     }
   }
 
+  async getRainVolume() {
+    const weatherData = await this.findAll(); // Busca os dados completos
+  
+    const cityVolumes = weatherData.map((data) => {
+      if (!data || !data.list) {
+        return {
+          name: data?.city?.name || 'Cidade desconhecida',
+          volume_1_day: 'Erro ao calcular',
+          volume_5_days: 'Erro ao calcular'
+        };
+      }
+  
+      const forecastList = data.list;
+  
+      // Calcula o volume total de chuvas para 5 dias (todos os 40 intervalos)
+      const totalRainVolume5Days = forecastList.reduce((total, item) => {
+        const rain = item.rain ? item.rain['3h'] || 0 : 0;
+        return total + rain;
+      }, 0);
+  
+      // Calcula o volume total de chuvas para 1 dia (primeiros 8 intervalos)
+      const totalRainVolume1Day = forecastList.slice(0, 8).reduce((total, item) => {
+        const rain = item.rain ? item.rain['3h'] || 0 : 0;
+        return total + rain;
+      }, 0);
+  
+      return {
+        name: data.city.name,
+        volume_1_day: totalRainVolume1Day.toFixed(2), // Volume de 1 dia
+        volume_5_days: totalRainVolume5Days.toFixed(2) // Volume de 5 dias
+      };
+    });
+  
+    return cityVolumes;
+  }
 
 }

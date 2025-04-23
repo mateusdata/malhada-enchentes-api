@@ -12,6 +12,12 @@ export class EducationalsController {
     return this.educationalsService.create(createEducationalDto);
   }
 
+  @Post()
+  createMany(@Body() createEducationalDto: CreateEducationalDto[]) {
+    return this.educationalsService.createMany(createEducationalDto);
+  }
+
+
   @Get()
   findAll() {
     

@@ -18,6 +18,12 @@ export class EducationalsService {
     });
   }
 
+  createMany(createEducationalDtos: CreateEducationalDto[]) {
+    return this.prisma.educational.createMany({
+      data: createEducationalDtos,
+    });
+  }
+
   async findAll() {
     return this.prisma.educational.findMany();
   }

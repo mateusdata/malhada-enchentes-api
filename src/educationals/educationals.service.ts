@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ServiceUnavailableException } from '@nestjs/common';
 import { CreateEducationalDto } from './dto/create-educational.dto';
 import { UpdateEducationalDto } from './dto/update-educational.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -8,6 +8,9 @@ export class EducationalsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createEducationalDto: CreateEducationalDto) {
+
+    return this.notAvailable();
+
     return this.prisma.educational.create({
       data: {
         title: createEducationalDto.title,
@@ -19,6 +22,9 @@ export class EducationalsService {
   }
 
   createMany(createEducationalDtos: CreateEducationalDto[]) {
+
+    return this.notAvailable();
+    
     return this.prisma.educational.createMany({
       data: createEducationalDtos,
     });
@@ -35,6 +41,9 @@ export class EducationalsService {
   }
 
   async update(id: number, updateEducationalDto: UpdateEducationalDto) {
+
+    return this.notAvailable();
+    
     return this.prisma.educational.update({
       where: { id },
       data: updateEducationalDto,
@@ -42,8 +51,16 @@ export class EducationalsService {
   }
 
   async remove(id: number) {
+
+    return this.notAvailable();
+    
     return this.prisma.educational.delete({
       where: { id },
     });
   }
+
+  notAvailable(){
+   throw new ServiceUnavailableException()
+  }
+
 }

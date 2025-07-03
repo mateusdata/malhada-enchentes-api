@@ -11,7 +11,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { WaterLevelModule } from './water-level/water-level.module';
 import { WebsocketsModule } from './websockets/websockets.module';
 import { TestModule } from './test/test.module';
-import { PrometheusModule } from "@willsoto/nestjs-prometheus";
+import { CommonModule } from './common/common.module';
 
 
 @Module({
@@ -20,7 +20,7 @@ import { PrometheusModule } from "@willsoto/nestjs-prometheus";
       throttlers: [
         {
           ttl: 60000,
-          limit: 60,
+          limit: 60000, // 60 mil requisições por minuto
         },
       ],
     }),
@@ -32,7 +32,7 @@ import { PrometheusModule } from "@willsoto/nestjs-prometheus";
     WaterLevelModule,
     WebsocketsModule,
     TestModule,
-    PrometheusModule.register()
+    CommonModule
   ],
   controllers: [AppController],
   providers: [

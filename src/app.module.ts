@@ -11,6 +11,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { WaterLevelModule } from './water-level/water-level.module';
 import { WebsocketsModule } from './websockets/websockets.module';
 import { TestModule } from './test/test.module';
+import { PrometheusModule } from "@willsoto/nestjs-prometheus";
 
 
 @Module({
@@ -31,6 +32,7 @@ import { TestModule } from './test/test.module';
     WaterLevelModule,
     WebsocketsModule,
     TestModule,
+    PrometheusModule.register()
   ],
   controllers: [AppController],
   providers: [

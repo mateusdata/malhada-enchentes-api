@@ -7,7 +7,7 @@ import { PrometheusModule } from '@willsoto/nestjs-prometheus';
     PrometheusModule.register({
       path: '/metrics', // endpoint de métricas
       customMetricPrefix: 'nestjs_', // prefixo automático nas métricas
-      defaultMetrics: { enabled: false }, // desativa as métricas padrão
+      defaultMetrics: { enabled: true }, // desativa as métricas padrão
     }),
   ],
   exports: [PrometheusModule], // exporta pra outros módulos
